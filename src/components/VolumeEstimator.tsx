@@ -137,111 +137,450 @@ const furnitureDatabase: FurnitureItem[] = [
   volume: 2,
   quantity: 0,
   category: 'salon'
+}, {
+  id: '13',
+  name: 'Guéridon',
+  icon: '🏓',
+  volume: 0.4,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '14',
+  name: 'Console',
+  icon: '📺',
+  volume: 0.6,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '15',
+  name: 'Vitrine',
+  icon: '🏺',
+  volume: 1.3,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '16',
+  name: 'Tapis roulé',
+  icon: '🏠',
+  volume: 0.2,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '17',
+  name: 'Lampadaire',
+  icon: '💡',
+  volume: 0.1,
+  quantity: 0,
+  category: 'salon'
 },
 // Cuisine
 {
-  id: '13',
+  id: '18',
   name: 'Réfrigérateur',
   icon: '❄️',
   volume: 1.2,
   quantity: 0,
   category: 'cuisine'
 }, {
-  id: '14',
+  id: '19',
   name: 'Cuisinière',
   icon: '🔥',
   volume: 1,
   quantity: 0,
   category: 'cuisine'
 }, {
-  id: '15',
+  id: '20',
   name: 'Lave-vaisselle',
   icon: '🧽',
   volume: 0.8,
   quantity: 0,
   category: 'cuisine'
 }, {
-  id: '16',
+  id: '21',
   name: 'Table de cuisine',
   icon: '🍽️',
   volume: 0.6,
   quantity: 0,
   category: 'cuisine'
 }, {
-  id: '17',
+  id: '22',
   name: 'Chaise de cuisine',
   icon: '🪑',
   volume: 0.2,
   quantity: 0,
   category: 'cuisine'
+}, {
+  id: '23',
+  name: 'Lave-linge',
+  icon: '🧺',
+  volume: 0.8,
+  quantity: 0,
+  category: 'cuisine'
+}, {
+  id: '24',
+  name: 'Sèche-linge',
+  icon: '🧺',
+  volume: 0.8,
+  quantity: 0,
+  category: 'cuisine'
+}, {
+  id: '25',
+  name: 'Micro-ondes',
+  icon: '📻',
+  volume: 0.1,
+  quantity: 0,
+  category: 'cuisine'
+}, {
+  id: '26',
+  name: 'Congélateur',
+  icon: '❄️',
+  volume: 1,
+  quantity: 0,
+  category: 'cuisine'
+}, {
+  id: '27',
+  name: 'Desserte',
+  icon: '🍽️',
+  volume: 0.4,
+  quantity: 0,
+  category: 'cuisine'
+}, {
+  id: '28',
+  name: 'Tabouret de bar',
+  icon: '🪑',
+  volume: 0.15,
+  quantity: 0,
+  category: 'cuisine'
 },
 // Chambre
 {
-  id: '18',
+  id: '29',
   name: 'Lit double',
   icon: '🛏️',
   volume: 2,
   quantity: 0,
   category: 'chambre'
 }, {
-  id: '19',
+  id: '30',
   name: 'Lit simple',
   icon: '🛏️',
   volume: 1.5,
   quantity: 0,
   category: 'chambre'
 }, {
-  id: '20',
+  id: '31',
   name: 'Armoire 3 portes',
   icon: '🚪',
   volume: 2.5,
   quantity: 0,
   category: 'chambre'
 }, {
-  id: '21',
+  id: '32',
   name: 'Commode',
   icon: '📦',
   volume: 0.8,
   quantity: 0,
   category: 'chambre'
 }, {
-  id: '22',
+  id: '33',
   name: 'Table de chevet',
   icon: '🏠',
   volume: 0.3,
   quantity: 0,
   category: 'chambre'
+}, {
+  id: '34',
+  name: 'Armoire 2 portes',
+  icon: '🚪',
+  volume: 2,
+  quantity: 0,
+  category: 'chambre'
+}, {
+  id: '35',
+  name: 'Coiffeuse',
+  icon: '💄',
+  volume: 0.6,
+  quantity: 0,
+  category: 'chambre'
+}, {
+  id: '36',
+  name: 'Lit bébé',
+  icon: '👶',
+  volume: 0.8,
+  quantity: 0,
+  category: 'chambre'
+}, {
+  id: '37',
+  name: 'Matelas',
+  icon: '🛏️',
+  volume: 0.5,
+  quantity: 0,
+  category: 'chambre'
+}, {
+  id: '38',
+  name: 'Sommier',
+  icon: '🛏️',
+  volume: 0.4,
+  quantity: 0,
+  category: 'chambre'
+}, {
+  id: '39',
+  name: 'Penderie',
+  icon: '👔',
+  volume: 1.5,
+  quantity: 0,
+  category: 'chambre'
+},
+// Salle de bain
+{
+  id: '40',
+  name: 'Meuble vasque',
+  icon: '🚿',
+  volume: 0.6,
+  quantity: 0,
+  category: 'salle-de-bain'
+}, {
+  id: '41',
+  name: 'Colonne de rangement',
+  icon: '🏺',
+  volume: 0.8,
+  quantity: 0,
+  category: 'salle-de-bain'
+}, {
+  id: '42',
+  name: 'Lave-linge',
+  icon: '🧺',
+  volume: 0.8,
+  quantity: 0,
+  category: 'salle-de-bain'
+}, {
+  id: '43',
+  name: 'Miroir sur pied',
+  icon: '🪞',
+  volume: 0.2,
+  quantity: 0,
+  category: 'salle-de-bain'
+}, {
+  id: '44',
+  name: 'Tabouret',
+  icon: '🪑',
+  volume: 0.1,
+  quantity: 0,
+  category: 'salle-de-bain'
+},
+// Bureau
+{
+  id: '45',
+  name: 'Bureau',
+  icon: '💼',
+  volume: 0.8,
+  quantity: 0,
+  category: 'bureau'
+}, {
+  id: '46',
+  name: 'Chaise de bureau',
+  icon: '🪑',
+  volume: 0.4,
+  quantity: 0,
+  category: 'bureau'
+}, {
+  id: '47',
+  name: 'Bibliothèque bureau',
+  icon: '📚',
+  volume: 1.2,
+  quantity: 0,
+  category: 'bureau'
+}, {
+  id: '48',
+  name: 'Classeur',
+  icon: '🗂️',
+  volume: 0.6,
+  quantity: 0,
+  category: 'bureau'
+}, {
+  id: '49',
+  name: 'Fauteuil direction',
+  icon: '🪑',
+  volume: 0.8,
+  quantity: 0,
+  category: 'bureau'
+}, {
+  id: '50',
+  name: 'Table de réunion',
+  icon: '🏓',
+  volume: 1.5,
+  quantity: 0,
+  category: 'bureau'
+}, {
+  id: '51',
+  name: 'Ordinateur fixe',
+  icon: '🖥️',
+  volume: 0.3,
+  quantity: 0,
+  category: 'bureau'
+}, {
+  id: '52',
+  name: 'Imprimante',
+  icon: '🖨️',
+  volume: 0.2,
+  quantity: 0,
+  category: 'bureau'
+},
+// Jardin & Balcon
+{
+  id: '53',
+  name: 'Table de jardin',
+  icon: '🌿',
+  volume: 0.8,
+  quantity: 0,
+  category: 'jardin'
+}, {
+  id: '54',
+  name: 'Chaise de jardin',
+  icon: '🪑',
+  volume: 0.3,
+  quantity: 0,
+  category: 'jardin'
+}, {
+  id: '55',
+  name: 'Parasol',
+  icon: '☂️',
+  volume: 0.2,
+  quantity: 0,
+  category: 'jardin'
+}, {
+  id: '56',
+  name: 'Barbecue',
+  icon: '🔥',
+  volume: 0.6,
+  quantity: 0,
+  category: 'jardin'
+}, {
+  id: '57',
+  name: 'Salon de jardin',
+  icon: '🌿',
+  volume: 2,
+  quantity: 0,
+  category: 'jardin'
+}, {
+  id: '58',
+  name: 'Transat',
+  icon: '🪑',
+  volume: 0.4,
+  quantity: 0,
+  category: 'jardin'
+}, {
+  id: '59',
+  name: 'Jardinière',
+  icon: '🌱',
+  volume: 0.3,
+  quantity: 0,
+  category: 'jardin'
+}, {
+  id: '60',
+  name: 'Banc de jardin',
+  icon: '🪑',
+  volume: 0.6,
+  quantity: 0,
+  category: 'jardin'
+},
+// Divers
+{
+  id: '61',
+  name: 'Cartons livres',
+  icon: '📦',
+  volume: 0.05,
+  quantity: 0,
+  category: 'divers'
+}, {
+  id: '62',
+  name: 'Cartons vêtements',
+  icon: '📦',
+  volume: 0.08,
+  quantity: 0,
+  category: 'divers'
+}, {
+  id: '63',
+  name: 'Cartons vaisselle',
+  icon: '📦',
+  volume: 0.06,
+  quantity: 0,
+  category: 'divers'
+}, {
+  id: '64',
+  name: 'Aspirateur',
+  icon: '🧹',
+  volume: 0.2,
+  quantity: 0,
+  category: 'divers'
+}, {
+  id: '65',
+  name: 'Télévision',
+  icon: '📺',
+  volume: 0.3,
+  quantity: 0,
+  category: 'divers'
+}, {
+  id: '66',
+  name: 'Vélo',
+  icon: '🚴',
+  volume: 0.8,
+  quantity: 0,
+  category: 'divers'
+}, {
+  id: '67',
+  name: 'Planche à repasser',
+  icon: '👔',
+  volume: 0.1,
+  quantity: 0,
+  category: 'divers'
+}, {
+  id: '68',
+  name: 'Échelle',
+  icon: '🪜',
+  volume: 0.3,
+  quantity: 0,
+  category: 'divers'
+}, {
+  id: '69',
+  name: 'Tableau/Cadre',
+  icon: '🖼️',
+  volume: 0.05,
+  quantity: 0,
+  category: 'divers'
+}, {
+  id: '70',
+  name: 'Plantes en pot',
+  icon: '🌱',
+  volume: 0.2,
+  quantity: 0,
+  category: 'divers'
 }];
 const getVehicleRecommendation = (volume: number) => {
   if (volume <= 3) return {
     type: 'Voiture + remorque (3m³)',
     icon: '🚗',
-    description: 'Idéal pour petits déménagements ou quelques meubles',
-    price: 'À partir de 50€/jour'
+    description: 'Idéal pour petits déménagements ou quelques meubles'
   };
   if (volume <= 8) return {
     type: 'Camionnette (8m³)',
     icon: '🚐',
-    description: 'Parfait pour studio ou petit 2 pièces',
-    price: 'À partir de 80€/jour'
+    description: 'Parfait pour studio ou petit 2 pièces'
   };
   if (volume <= 15) return {
     type: 'Petit camion (15m³)',
     icon: '🚚',
-    description: 'Adapté pour appartement 3-4 pièces',
-    price: 'À partir de 120€/jour'
+    description: 'Adapté pour appartement 3-4 pièces'
   };
   if (volume <= 30) return {
     type: 'Camion moyen (30m³)',
     icon: '🚛',
-    description: 'Pour grande maison ou bureau',
-    price: 'À partir de 180€/jour'
+    description: 'Pour grande maison ou bureau'
   };
   return {
     type: 'Grand camion (40m³+)',
     icon: '🚛',
-    description: 'Pour très gros déménagements',
-    price: 'Devis sur mesure'
+    description: 'Pour très gros déménagements'
   };
 };
 export const VolumeEstimator = () => {

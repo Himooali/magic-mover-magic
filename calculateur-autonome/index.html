@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estimateur de Volume - Déménagement</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="container">
+                <h1>ESTIMATEUR DE VOLUME</h1>
+                <div class="phone">
+                    📞 079 200 43 43
+                </div>
+            </div>
+        </header>
+
+        <div class="container main-content">
+            <div class="left-column">
+                <!-- Search Section -->
+                <div class="card">
+                    <h2>🔍 Rechercher un objet</h2>
+                    <input type="text" id="searchInput" placeholder="Rechercher un meuble..." class="search-input">
+                    
+                    <div class="custom-form" id="customForm" style="display: none;">
+                        <h4>Nouvel objet personnalisé</h4>
+                        <div class="form-grid">
+                            <input type="text" id="customName" placeholder="Nom de l'objet">
+                            <input type="number" id="customVolume" step="0.1" placeholder="Volume (m³)">
+                            <select id="customCategory">
+                                <option value="salon">Salon</option>
+                                <option value="cuisine">Cuisine</option>
+                                <option value="chambre">Chambre</option>
+                                <option value="salle-de-bain">Salle de bain</option>
+                                <option value="bureau">Bureau</option>
+                                <option value="jardin">Jardin & Balcon</option>
+                                <option value="divers">Divers</option>
+                            </select>
+                        </div>
+                        <button onclick="addCustomItem()">Ajouter</button>
+                        <button onclick="hideCustomForm()">Annuler</button>
+                    </div>
+                    <button onclick="showCustomForm()">+ Ajouter un objet personnalisé</button>
+                </div>
+
+                <!-- Categories -->
+                <div class="card">
+                    <h2>Catégories</h2>
+                    <div class="categories" id="categories"></div>
+                </div>
+
+                <!-- Furniture Items -->
+                <div class="card">
+                    <h2 id="categoryTitle">Salon</h2>
+                    <div class="furniture-grid" id="furnitureGrid"></div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="card estimation-card">
+                    <h2>Estimation</h2>
+                    
+                    <div class="volume-display">
+                        <div class="volume-number" id="totalVolume">0.0 m³</div>
+                        <p>Volume total estimé</p>
+                    </div>
+
+                    <div class="vehicle-recommendation">
+                        <h3>🚗 Véhicule recommandé</h3>
+                        <div class="vehicle-badge" id="vehicleBadge">
+                            <div class="vehicle-info">
+                                <span class="vehicle-icon">🚗</span>
+                                <span class="vehicle-type">Voiture + remorque (3m³)</span>
+                            </div>
+                            <p class="vehicle-description">Idéal pour petits déménagements</p>
+                        </div>
+                    </div>
+
+                    <div class="tips">
+                        <h3>📍 Conseils :</h3>
+                        <ul>
+                            <li>• Ajoutez 10-15% pour les affaires diverses</li>
+                            <li>• Prévoyez du matériel d'emballage</li>
+                            <li>• Contactez-nous pour un devis précis</li>
+                            <li>• Réservez à l'avance pour de meilleurs tarifs</li>
+                        </ul>
+                    </div>
+
+                    <div class="actions">
+                        <button onclick="resetAll()" class="btn-outline">🔄 Réinitialiser</button>
+                        <button onclick="requestQuote()" class="btn-primary">📋 Demander un devis</button>
+                        <button class="btn-outline">📞 079 200 43 43</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
