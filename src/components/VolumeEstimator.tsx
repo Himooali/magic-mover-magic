@@ -4,7 +4,11 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
-import { Search, Bot, Minus, Plus, RotateCcw, FileText, Phone, Car } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Search, Bot, Minus, Plus, RotateCcw, FileText, Phone, Car, Truck, X } from 'lucide-react';
 
 interface FurnitureItem {
   id: string;
@@ -62,17 +66,53 @@ const furnitureDatabase: FurnitureItem[] = [
 ];
 
 const getVehicleRecommendation = (volume: number) => {
-  if (volume <= 3) return { type: 'Voiture + remorque (3m³)', icon: '🚗' };
-  if (volume <= 8) return { type: 'Camionnette (8m³)', icon: '🚐' };
-  if (volume <= 15) return { type: 'Petit camion (15m³)', icon: '🚚' };
-  if (volume <= 30) return { type: 'Camion moyen (30m³)', icon: '🚛' };
-  return { type: 'Grand camion (40m³+)', icon: '🚛' };
+  if (volume <= 3) return { 
+    type: 'Voiture + remorque (3m³)', 
+    icon: '🚗',
+    description: 'Idéal pour petits déménagements ou quelques meubles',
+    price: 'À partir de 50€/jour'
+  };
+  if (volume <= 8) return { 
+    type: 'Camionnette (8m³)', 
+    icon: '🚐',
+    description: 'Parfait pour studio ou petit 2 pièces',
+    price: 'À partir de 80€/jour'
+  };
+  if (volume <= 15) return { 
+    type: 'Petit camion (15m³)', 
+    icon: '🚚',
+    description: 'Adapté pour appartement 3-4 pièces',
+    price: 'À partir de 120€/jour'
+  };
+  if (volume <= 30) return { 
+    type: 'Camion moyen (30m³)', 
+    icon: '🚛',
+    description: 'Pour grande maison ou bureau',
+    price: 'À partir de 180€/jour'
+  };
+  return { 
+    type: 'Grand camion (40m³+)', 
+    icon: '🚛',
+    description: 'Pour très gros déménagements',
+    price: 'Devis sur mesure'
+  };
 };
 
 export const VolumeEstimator = () => {
   const [selectedCategory, setSelectedCategory] = useState('salon');
   const [furniture, setFurniture] = useState<FurnitureItem[]>(furnitureDatabase);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showCustomForm, setShowCustomForm] = useState(false);
+  const [showQuoteDialog, setShowQuoteDialog] = useState(false);
+  const [customItem, setCustomItem] = useState({ name: '', volume: '', category: 'salon' });
+  const [quoteForm, setQuoteForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    date: '',
+    message: ''
+  });
   const { toast } = useToast();
 
   const totalVolume = furniture.reduce((sum, item) => sum + (item.volume * item.quantity), 0);
@@ -114,10 +154,36 @@ export const VolumeEstimator = () => {
   };
 
   const requestQuote = () => {
+    setShowQuoteDialog(true);
+  };
+
+  const submitQuote = () => {
     toast({
-      title: "Demande de devis",
-      description: "Redirection vers le formulaire de contact...",
+      title: "Demande envoyée",
+      description: "Nous vous contacterons sous 24h",
     });
+    setShowQuoteDialog(false);
+    setQuoteForm({ name: '', email: '', phone: '', address: '', date: '', message: '' });
+  };
+
+  const addCustomItem = () => {
+    if (customItem.name && customItem.volume) {
+      const newItem: FurnitureItem = {
+        id: Date.now().toString(),
+        name: customItem.name,
+        icon: '📦',
+        volume: parseFloat(customItem.volume),
+        quantity: 1,
+        category: customItem.category
+      };
+      setFurniture(prev => [...prev, newItem]);
+      setCustomItem({ name: '', volume: '', category: 'salon' });
+      setShowCustomForm(false);
+      toast({
+        title: "Objet ajouté",
+        description: `${newItem.name} a été ajouté à la catégorie ${categories.find(c => c.id === newItem.category)?.name}`,
+      });
+    }
   };
 
   return (
@@ -172,9 +238,62 @@ export const VolumeEstimator = () => {
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <Button variant="ghost" size="sm">
-                    + Ajouter un objet personnalisé
-                  </Button>
+                  {!showCustomForm ? (
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => setShowCustomForm(true)}
+                    >
+                      + Ajouter un objet personnalisé
+                    </Button>
+                  ) : (
+                    <div className="flex-1 space-y-3 p-4 border rounded-lg bg-muted/50">
+                      <div className="flex justify-between items-center">
+                        <h4 className="font-medium">Nouvel objet personnalisé</h4>
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => setShowCustomForm(false)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+                        <Input
+                          placeholder="Nom de l'objet"
+                          value={customItem.name}
+                          onChange={(e) => setCustomItem(prev => ({...prev, name: e.target.value}))}
+                        />
+                        <Input
+                          type="number"
+                          step="0.1"
+                          placeholder="Volume (m³)"
+                          value={customItem.volume}
+                          onChange={(e) => setCustomItem(prev => ({...prev, volume: e.target.value}))}
+                        />
+                        <Select 
+                          value={customItem.category} 
+                          onValueChange={(value) => setCustomItem(prev => ({...prev, category: value}))}
+                        >
+                          <SelectTrigger>
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {categories.map(cat => (
+                              <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <Button 
+                        size="sm" 
+                        onClick={addCustomItem}
+                        disabled={!customItem.name || !customItem.volume}
+                      >
+                        Ajouter
+                      </Button>
+                    </div>
+                  )}
                   <Button variant="ghost" size="sm">
                     Afficher
                   </Button>
@@ -253,14 +372,20 @@ export const VolumeEstimator = () => {
               </div>
 
               <div className="mb-6">
-                <h3 className="font-semibold mb-2 flex items-center gap-2">
+                <h3 className="font-semibold mb-3 flex items-center gap-2">
                   <Car className="h-5 w-5" />
                   Véhicule recommandé
                 </h3>
-                <Badge variant="secondary" className="w-full justify-center py-2">
-                  <span className="mr-2">{vehicle.icon}</span>
-                  {vehicle.type}
-                </Badge>
+                <div className="space-y-3">
+                  <Badge variant="secondary" className="w-full justify-center py-3 flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">{vehicle.icon}</span>
+                      <span className="font-medium">{vehicle.type}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">{vehicle.description}</p>
+                    <p className="text-xs font-medium text-primary">{vehicle.price}</p>
+                  </Badge>
+                </div>
               </div>
 
               <div className="mb-6">
@@ -283,13 +408,96 @@ export const VolumeEstimator = () => {
                   Réinitialiser
                 </Button>
                 
-                <Button 
-                  onClick={requestQuote}
-                  className="w-full bg-sky-blue hover:bg-sky-blue-dark"
-                >
-                  <FileText className="h-4 w-4 mr-2" />
-                  📋 Demander un devis
-                </Button>
+                <Dialog open={showQuoteDialog} onOpenChange={setShowQuoteDialog}>
+                  <DialogTrigger asChild>
+                    <Button 
+                      onClick={requestQuote}
+                      className="w-full bg-sky-blue hover:bg-sky-blue-dark"
+                    >
+                      <FileText className="h-4 w-4 mr-2" />
+                      📋 Demander un devis
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Demande de devis personnalisé</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="name">Nom complet</Label>
+                          <Input
+                            id="name"
+                            value={quoteForm.name}
+                            onChange={(e) => setQuoteForm(prev => ({...prev, name: e.target.value}))}
+                            placeholder="Votre nom"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="email">Email</Label>
+                          <Input
+                            id="email"
+                            type="email"
+                            value={quoteForm.email}
+                            onChange={(e) => setQuoteForm(prev => ({...prev, email: e.target.value}))}
+                            placeholder="votre@email.com"
+                          />
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label htmlFor="phone">Téléphone</Label>
+                          <Input
+                            id="phone"
+                            value={quoteForm.phone}
+                            onChange={(e) => setQuoteForm(prev => ({...prev, phone: e.target.value}))}
+                            placeholder="079 200 43 43"
+                          />
+                        </div>
+                        <div>
+                          <Label htmlFor="date">Date souhaitée</Label>
+                          <Input
+                            id="date"
+                            type="date"
+                            value={quoteForm.date}
+                            onChange={(e) => setQuoteForm(prev => ({...prev, date: e.target.value}))}
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <Label htmlFor="address">Adresse de déménagement</Label>
+                        <Input
+                          id="address"
+                          value={quoteForm.address}
+                          onChange={(e) => setQuoteForm(prev => ({...prev, address: e.target.value}))}
+                          placeholder="Adresse complète"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="message">Message (optionnel)</Label>
+                        <Textarea
+                          id="message"
+                          value={quoteForm.message}
+                          onChange={(e) => setQuoteForm(prev => ({...prev, message: e.target.value}))}
+                          placeholder="Informations supplémentaires..."
+                          rows={3}
+                        />
+                      </div>
+                      <div className="bg-muted p-3 rounded-lg">
+                        <p className="text-sm font-medium">Estimation actuelle :</p>
+                        <p className="text-lg font-bold text-primary">{totalVolume.toFixed(1)} m³</p>
+                        <p className="text-sm text-muted-foreground">Véhicule : {vehicle.type}</p>
+                      </div>
+                      <Button 
+                        onClick={submitQuote}
+                        className="w-full"
+                        disabled={!quoteForm.name || !quoteForm.email || !quoteForm.phone}
+                      >
+                        Envoyer la demande
+                      </Button>
+                    </div>
+                  </DialogContent>
+                </Dialog>
                 
                 <Button 
                   variant="outline"
