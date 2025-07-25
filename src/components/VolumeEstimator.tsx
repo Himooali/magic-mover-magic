@@ -682,10 +682,7 @@ export const VolumeEstimator = () => {
       <div className="bg-sky-blue text-white py-6">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold mb-2">ESTIMATEUR DE VOLUME</h1>
-          <div className="flex items-center justify-center gap-2">
-            <Phone className="h-5 w-5" />
-            <span className="text-lg font-semibold">079 200 43 43</span>
-          </div>
+          
         </div>
       </div>
 
