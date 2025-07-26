@@ -9,7 +9,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Search, Bot, Minus, Plus, RotateCcw, FileText, Phone, Car, Truck, X } from 'lucide-react';
-
 interface FurnitureItem {
   id: string;
   name: string;
@@ -18,88 +17,239 @@ interface FurnitureItem {
   quantity: number;
   category: string;
 }
-
 interface Category {
   id: string;
   name: string;
   icon: string;
 }
-
-const categories: Category[] = [
-  { id: 'salon', name: 'Salon', icon: '🛋️' },
-  { id: 'cuisine', name: 'Cuisine', icon: '🍽️' },
-  { id: 'chambre', name: 'Chambre', icon: '🛏️' },
-  { id: 'salle-de-bain', name: 'Salle de bain', icon: '🚿' },
-  { id: 'bureau', name: 'Bureau', icon: '💼' },
-  { id: 'jardin', name: 'Jardin & Balcon', icon: '🌿' },
-  { id: 'divers', name: 'Divers', icon: '📦' },
-];
-
+const categories: Category[] = [{
+  id: 'salon',
+  name: 'Salon',
+  icon: '🛋️'
+}, {
+  id: 'cuisine',
+  name: 'Cuisine',
+  icon: '🍽️'
+}, {
+  id: 'chambre',
+  name: 'Chambre',
+  icon: '🛏️'
+}, {
+  id: 'salle-de-bain',
+  name: 'Salle de bain',
+  icon: '🚿'
+}, {
+  id: 'bureau',
+  name: 'Bureau',
+  icon: '💼'
+}, {
+  id: 'jardin',
+  name: 'Jardin & Balcon',
+  icon: '🌿'
+}, {
+  id: 'divers',
+  name: 'Divers',
+  icon: '📦'
+}];
 const furnitureDatabase: FurnitureItem[] = [
-  // Salon
-  { id: '1', name: "Canapé d'angle", icon: '🛋️', volume: 2.5, quantity: 0, category: 'salon' },
-  { id: '2', name: 'Canapé 3 places', icon: '🛋️', volume: 2, quantity: 0, category: 'salon' },
-  { id: '3', name: 'Canapé 2 places', icon: '🛋️', volume: 1.5, quantity: 0, category: 'salon' },
-  { id: '4', name: 'Fauteuil', icon: '🪑', volume: 0.8, quantity: 0, category: 'salon' },
-  { id: '5', name: 'Pouf', icon: '🪑', volume: 0.3, quantity: 0, category: 'salon' },
-  { id: '6', name: 'Méridienne', icon: '🛋️', volume: 1.8, quantity: 0, category: 'salon' },
-  { id: '7', name: 'Banquette', icon: '🛋️', volume: 1.2, quantity: 0, category: 'salon' },
-  { id: '8', name: 'Table basse', icon: '🏓', volume: 0.5, quantity: 0, category: 'salon' },
-  { id: '9', name: 'Bibliothèque grande', icon: '📚', volume: 1.5, quantity: 0, category: 'salon' },
-  { id: '10', name: 'Bibliothèque moyenne', icon: '📚', volume: 1, quantity: 0, category: 'salon' },
-  { id: '11', name: 'Meuble TV', icon: '📺', volume: 0.8, quantity: 0, category: 'salon' },
-  { id: '12', name: 'Piano droit', icon: '🎹', volume: 2, quantity: 0, category: 'salon' },
-  
-  // Cuisine
-  { id: '13', name: 'Réfrigérateur', icon: '❄️', volume: 1.2, quantity: 0, category: 'cuisine' },
-  { id: '14', name: 'Cuisinière', icon: '🔥', volume: 1, quantity: 0, category: 'cuisine' },
-  { id: '15', name: 'Lave-vaisselle', icon: '🧽', volume: 0.8, quantity: 0, category: 'cuisine' },
-  { id: '16', name: 'Table de cuisine', icon: '🍽️', volume: 0.6, quantity: 0, category: 'cuisine' },
-  { id: '17', name: 'Chaise de cuisine', icon: '🪑', volume: 0.2, quantity: 0, category: 'cuisine' },
-  
-  // Chambre
-  { id: '18', name: 'Lit double', icon: '🛏️', volume: 2, quantity: 0, category: 'chambre' },
-  { id: '19', name: 'Lit simple', icon: '🛏️', volume: 1.5, quantity: 0, category: 'chambre' },
-  { id: '20', name: 'Armoire 3 portes', icon: '🚪', volume: 2.5, quantity: 0, category: 'chambre' },
-  { id: '21', name: 'Commode', icon: '📦', volume: 0.8, quantity: 0, category: 'chambre' },
-  { id: '22', name: 'Table de chevet', icon: '🏠', volume: 0.3, quantity: 0, category: 'chambre' },
-];
-
+// Salon
+{
+  id: '1',
+  name: "Canapé d'angle",
+  icon: '🛋️',
+  volume: 2.5,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '2',
+  name: 'Canapé 3 places',
+  icon: '🛋️',
+  volume: 2,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '3',
+  name: 'Canapé 2 places',
+  icon: '🛋️',
+  volume: 1.5,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '4',
+  name: 'Fauteuil',
+  icon: '🪑',
+  volume: 0.8,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '5',
+  name: 'Pouf',
+  icon: '🪑',
+  volume: 0.3,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '6',
+  name: 'Méridienne',
+  icon: '🛋️',
+  volume: 1.8,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '7',
+  name: 'Banquette',
+  icon: '🛋️',
+  volume: 1.2,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '8',
+  name: 'Table basse',
+  icon: '🏓',
+  volume: 0.5,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '9',
+  name: 'Bibliothèque grande',
+  icon: '📚',
+  volume: 1.5,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '10',
+  name: 'Bibliothèque moyenne',
+  icon: '📚',
+  volume: 1,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '11',
+  name: 'Meuble TV',
+  icon: '📺',
+  volume: 0.8,
+  quantity: 0,
+  category: 'salon'
+}, {
+  id: '12',
+  name: 'Piano droit',
+  icon: '🎹',
+  volume: 2,
+  quantity: 0,
+  category: 'salon'
+},
+// Cuisine
+{
+  id: '13',
+  name: 'Réfrigérateur',
+  icon: '❄️',
+  volume: 1.2,
+  quantity: 0,
+  category: 'cuisine'
+}, {
+  id: '14',
+  name: 'Cuisinière',
+  icon: '🔥',
+  volume: 1,
+  quantity: 0,
+  category: 'cuisine'
+}, {
+  id: '15',
+  name: 'Lave-vaisselle',
+  icon: '🧽',
+  volume: 0.8,
+  quantity: 0,
+  category: 'cuisine'
+}, {
+  id: '16',
+  name: 'Table de cuisine',
+  icon: '🍽️',
+  volume: 0.6,
+  quantity: 0,
+  category: 'cuisine'
+}, {
+  id: '17',
+  name: 'Chaise de cuisine',
+  icon: '🪑',
+  volume: 0.2,
+  quantity: 0,
+  category: 'cuisine'
+},
+// Chambre
+{
+  id: '18',
+  name: 'Lit double',
+  icon: '🛏️',
+  volume: 2,
+  quantity: 0,
+  category: 'chambre'
+}, {
+  id: '19',
+  name: 'Lit simple',
+  icon: '🛏️',
+  volume: 1.5,
+  quantity: 0,
+  category: 'chambre'
+}, {
+  id: '20',
+  name: 'Armoire 3 portes',
+  icon: '🚪',
+  volume: 2.5,
+  quantity: 0,
+  category: 'chambre'
+}, {
+  id: '21',
+  name: 'Commode',
+  icon: '📦',
+  volume: 0.8,
+  quantity: 0,
+  category: 'chambre'
+}, {
+  id: '22',
+  name: 'Table de chevet',
+  icon: '🏠',
+  volume: 0.3,
+  quantity: 0,
+  category: 'chambre'
+}];
 const getVehicleRecommendation = (volume: number) => {
-  if (volume <= 3) return { 
-    type: 'Camions + remorque (3m³)', 
+  if (volume <= 3) return {
+    type: 'Camions + remorque (3m³)',
     icon: Car,
     description: 'Idéal pour petits déménagements ou quelques meubles'
   };
-  if (volume <= 8) return { 
-    type: 'Camionnette (8m³)', 
+  if (volume <= 8) return {
+    type: 'Camionnette (8m³)',
     icon: Truck,
     description: 'Parfait pour studio ou petit 2 pièces'
   };
-  if (volume <= 15) return { 
-    type: 'Petit camion (15m³)', 
+  if (volume <= 15) return {
+    type: 'Petit camion (15m³)',
     icon: Truck,
     description: 'Adapté pour appartement 3-4 pièces'
   };
-  if (volume <= 30) return { 
-    type: 'Camion moyen (30m³)', 
+  if (volume <= 30) return {
+    type: 'Camion moyen (30m³)',
     icon: Truck,
     description: 'Pour grande maison ou bureau'
   };
-  return { 
-    type: 'Grand camion (40m³+)', 
+  return {
+    type: 'Grand camion (40m³+)',
     icon: Truck,
     description: 'Pour très gros déménagements'
   };
 };
-
 export const VolumeEstimator = () => {
   const [selectedCategory, setSelectedCategory] = useState('salon');
   const [furniture, setFurniture] = useState<FurnitureItem[]>(furnitureDatabase);
   const [searchTerm, setSearchTerm] = useState('');
   const [showCustomForm, setShowCustomForm] = useState(false);
   const [showQuoteDialog, setShowQuoteDialog] = useState(false);
-  const [customItem, setCustomItem] = useState({ name: '', volume: '', category: 'salon' });
+  const [customItem, setCustomItem] = useState({
+    name: '',
+    volume: '',
+    category: 'salon'
+  });
   const [quoteForm, setQuoteForm] = useState({
     name: '',
     email: '',
@@ -109,55 +259,55 @@ export const VolumeEstimator = () => {
     date: '',
     message: ''
   });
-  const { toast } = useToast();
-
-  const totalVolume = furniture.reduce((sum, item) => sum + (item.volume * item.quantity), 0);
+  const {
+    toast
+  } = useToast();
+  const totalVolume = furniture.reduce((sum, item) => sum + item.volume * item.quantity, 0);
   const vehicle = getVehicleRecommendation(totalVolume);
-
-  const filteredFurniture = furniture.filter(item => 
-    item.category === selectedCategory && 
-    (searchTerm === '' || item.name.toLowerCase().includes(searchTerm.toLowerCase()))
-  );
-
+  const filteredFurniture = furniture.filter(item => item.category === selectedCategory && (searchTerm === '' || item.name.toLowerCase().includes(searchTerm.toLowerCase())));
   const updateQuantity = (id: string, change: number) => {
-    setFurniture(prev => prev.map(item => 
-      item.id === id 
-        ? { ...item, quantity: Math.max(0, item.quantity + change) }
-        : item
-    ));
+    setFurniture(prev => prev.map(item => item.id === id ? {
+      ...item,
+      quantity: Math.max(0, item.quantity + change)
+    } : item));
   };
-
   const resetAll = () => {
-    setFurniture(prev => prev.map(item => ({ ...item, quantity: 0 })));
+    setFurniture(prev => prev.map(item => ({
+      ...item,
+      quantity: 0
+    })));
     toast({
       title: "Réinitialisation",
-      description: "Toutes les quantités ont été remises à zéro",
+      description: "Toutes les quantités ont été remises à zéro"
     });
   };
-
   const handleChatGPTSearch = () => {
     const query = searchTerm || 'mobilier déménagement volume';
     window.open(`https://chatgpt.com/?q=${encodeURIComponent(query)}`, '_blank');
   };
-
   const handleGoogleSearch = () => {
     const query = searchTerm || 'mobilier déménagement volume';
     window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
   };
-
   const requestQuote = () => {
     setShowQuoteDialog(true);
   };
-
   const submitQuote = () => {
     toast({
       title: "Demande envoyée",
-      description: "Nous vous contacterons sous 24h",
+      description: "Nous vous contacterons sous 24h"
     });
     setShowQuoteDialog(false);
-    setQuoteForm({ name: '', email: '', phone: '', addressFrom: '', addressTo: '', date: '', message: '' });
+    setQuoteForm({
+      name: '',
+      email: '',
+      phone: '',
+      addressFrom: '',
+      addressTo: '',
+      date: '',
+      message: ''
+    });
   };
-
   const addCustomItem = () => {
     if (customItem.name && customItem.volume) {
       const newItem: FurnitureItem = {
@@ -169,24 +319,26 @@ export const VolumeEstimator = () => {
         category: customItem.category
       };
       setFurniture(prev => [...prev, newItem]);
-      setCustomItem({ name: '', volume: '', category: 'salon' });
+      setCustomItem({
+        name: '',
+        volume: '',
+        category: 'salon'
+      });
       setShowCustomForm(false);
       toast({
         title: "Objet ajouté",
-        description: `${newItem.name} a été ajouté à la catégorie ${categories.find(c => c.id === newItem.category)?.name}`,
+        description: `${newItem.name} a été ajouté à la catégorie ${categories.find(c => c.id === newItem.category)?.name}`
       });
     }
   };
-
-  return (
-    <div className="min-h-screen bg-light-gray">
+  return <div className="min-h-screen bg-light-gray">
       {/* Header */}
       <div className="bg-sky-blue text-white py-6">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold mb-2">ESTIMATEUR DE VOLUME</h1>
           <div className="flex items-center justify-center gap-2">
-            <Phone className="h-5 w-5" />
-            <span className="text-lg font-semibold">079 200 43 43</span>
+            
+            
           </div>
         </div>
       </div>
@@ -203,89 +355,54 @@ export const VolumeEstimator = () => {
               </h2>
               
               <div className="space-y-4">
-                <Input
-                  placeholder="Rechercher un meuble..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full"
-                />
+                <Input placeholder="Rechercher un meuble..." value={searchTerm} onChange={e => setSearchTerm(e.target.value)} className="w-full" />
                 
                 <div className="flex gap-2 flex-wrap">
-                  <Button 
-                    variant="outline" 
-                    onClick={handleChatGPTSearch}
-                    className="flex items-center gap-2"
-                  >
+                  <Button variant="outline" onClick={handleChatGPTSearch} className="flex items-center gap-2">
                     <Bot className="h-4 w-4" />
                     🤖 Rechercher avec ChatGPT
                   </Button>
-                  <Button 
-                    variant="outline" 
-                    onClick={handleGoogleSearch}
-                    className="flex items-center gap-2"
-                  >
+                  <Button variant="outline" onClick={handleGoogleSearch} className="flex items-center gap-2">
                     <Search className="h-4 w-4" />
                     🔍 Rechercher avec Google
                   </Button>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  {!showCustomForm ? (
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => setShowCustomForm(true)}
-                    >
+                  {!showCustomForm ? <Button variant="ghost" size="sm" onClick={() => setShowCustomForm(true)}>
                       + Ajouter un objet personnalisé
-                    </Button>
-                  ) : (
-                    <div className="flex-1 space-y-3 p-4 border rounded-lg bg-muted/50">
+                    </Button> : <div className="flex-1 space-y-3 p-4 border rounded-lg bg-muted/50">
                       <div className="flex justify-between items-center">
                         <h4 className="font-medium">Nouvel objet personnalisé</h4>
-                        <Button 
-                          variant="ghost" 
-                          size="sm"
-                          onClick={() => setShowCustomForm(false)}
-                        >
+                        <Button variant="ghost" size="sm" onClick={() => setShowCustomForm(false)}>
                           <X className="h-4 w-4" />
                         </Button>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                        <Input
-                          placeholder="Nom de l'objet"
-                          value={customItem.name}
-                          onChange={(e) => setCustomItem(prev => ({...prev, name: e.target.value}))}
-                        />
-                        <Input
-                          type="number"
-                          step="0.1"
-                          placeholder="Volume (m³)"
-                          value={customItem.volume}
-                          onChange={(e) => setCustomItem(prev => ({...prev, volume: e.target.value}))}
-                        />
-                        <Select 
-                          value={customItem.category} 
-                          onValueChange={(value) => setCustomItem(prev => ({...prev, category: value}))}
-                        >
+                        <Input placeholder="Nom de l'objet" value={customItem.name} onChange={e => setCustomItem(prev => ({
+                      ...prev,
+                      name: e.target.value
+                    }))} />
+                        <Input type="number" step="0.1" placeholder="Volume (m³)" value={customItem.volume} onChange={e => setCustomItem(prev => ({
+                      ...prev,
+                      volume: e.target.value
+                    }))} />
+                        <Select value={customItem.category} onValueChange={value => setCustomItem(prev => ({
+                      ...prev,
+                      category: value
+                    }))}>
                           <SelectTrigger>
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            {categories.map(cat => (
-                              <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
-                            ))}
+                            {categories.map(cat => <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>)}
                           </SelectContent>
                         </Select>
                       </div>
-                      <Button 
-                        size="sm" 
-                        onClick={addCustomItem}
-                        disabled={!customItem.name || !customItem.volume}
-                      >
+                      <Button size="sm" onClick={addCustomItem} disabled={!customItem.name || !customItem.volume}>
                         Ajouter
                       </Button>
-                    </div>
-                  )}
+                    </div>}
                   <Button variant="ghost" size="sm">
                     Afficher
                   </Button>
@@ -298,18 +415,10 @@ export const VolumeEstimator = () => {
               <h2 className="text-lg font-semibold mb-3">Catégories</h2>
               
               <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <Button
-                    key={category.id}
-                    variant={selectedCategory === category.id ? "default" : "outline"}
-                    onClick={() => setSelectedCategory(category.id)}
-                    className="flex items-center gap-1 h-auto py-2 px-3 text-xs"
-                    size="sm"
-                  >
+                {categories.map(category => <Button key={category.id} variant={selectedCategory === category.id ? "default" : "outline"} onClick={() => setSelectedCategory(category.id)} className="flex items-center gap-1 h-auto py-2 px-3 text-xs" size="sm">
                     <span className="text-sm">{category.icon}</span>
                     <span>{category.name}</span>
-                  </Button>
-                ))}
+                  </Button>)}
               </div>
             </Card>
 
@@ -318,8 +427,7 @@ export const VolumeEstimator = () => {
               <h2 className="text-xl font-semibold mb-4 capitalize">{categories.find(c => c.id === selectedCategory)?.name}</h2>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredFurniture.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between p-4 border rounded-lg bg-card">
+                {filteredFurniture.map(item => <div key={item.id} className="flex items-center justify-between p-4 border rounded-lg bg-card">
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">{item.icon}</span>
                       <div>
@@ -329,25 +437,15 @@ export const VolumeEstimator = () => {
                     </div>
                     
                     <div className="flex items-center gap-2">
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => updateQuantity(item.id, -1)}
-                        disabled={item.quantity === 0}
-                      >
+                      <Button size="sm" variant="outline" onClick={() => updateQuantity(item.id, -1)} disabled={item.quantity === 0}>
                         <Minus className="h-4 w-4" />
                       </Button>
                       <span className="w-8 text-center font-medium">{item.quantity}</span>
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => updateQuantity(item.id, 1)}
-                      >
+                      <Button size="sm" variant="outline" onClick={() => updateQuantity(item.id, 1)}>
                         <Plus className="h-4 w-4" />
                       </Button>
                     </div>
-                  </div>
-                ))}
+                  </div>)}
               </div>
             </Card>
           </div>
@@ -391,21 +489,14 @@ export const VolumeEstimator = () => {
               </div>
 
               <div className="space-y-3">
-                <Button 
-                  variant="outline" 
-                  onClick={resetAll}
-                  className="w-full"
-                >
+                <Button variant="outline" onClick={resetAll} className="w-full">
                   <RotateCcw className="h-4 w-4 mr-2" />
                   Réinitialiser
                 </Button>
                 
                 <Dialog open={showQuoteDialog} onOpenChange={setShowQuoteDialog}>
                   <DialogTrigger asChild>
-                    <Button 
-                      onClick={requestQuote}
-                      className="w-full bg-sky-blue hover:bg-sky-blue-dark"
-                    >
+                    <Button onClick={requestQuote} className="w-full bg-sky-blue hover:bg-sky-blue-dark">
                       <FileText className="h-4 w-4 mr-2" />
                       📋 Demander un devis
                     </Button>
@@ -418,92 +509,69 @@ export const VolumeEstimator = () => {
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <Label htmlFor="name">Nom complet</Label>
-                          <Input
-                            id="name"
-                            value={quoteForm.name}
-                            onChange={(e) => setQuoteForm(prev => ({...prev, name: e.target.value}))}
-                            placeholder="Votre nom"
-                          />
+                          <Input id="name" value={quoteForm.name} onChange={e => setQuoteForm(prev => ({
+                          ...prev,
+                          name: e.target.value
+                        }))} placeholder="Votre nom" />
                         </div>
                         <div>
                           <Label htmlFor="email">Email</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            value={quoteForm.email}
-                            onChange={(e) => setQuoteForm(prev => ({...prev, email: e.target.value}))}
-                            placeholder="votre@email.com"
-                          />
+                          <Input id="email" type="email" value={quoteForm.email} onChange={e => setQuoteForm(prev => ({
+                          ...prev,
+                          email: e.target.value
+                        }))} placeholder="votre@email.com" />
                         </div>
                       </div>
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <Label htmlFor="phone">Téléphone</Label>
-                          <Input
-                            id="phone"
-                            value={quoteForm.phone}
-                            onChange={(e) => setQuoteForm(prev => ({...prev, phone: e.target.value}))}
-                            placeholder="079 200 43 43"
-                          />
+                          <Input id="phone" value={quoteForm.phone} onChange={e => setQuoteForm(prev => ({
+                          ...prev,
+                          phone: e.target.value
+                        }))} placeholder="079 200 43 43" />
                         </div>
                         <div>
                           <Label htmlFor="date">Date souhaitée</Label>
-                          <Input
-                            id="date"
-                            type="date"
-                            value={quoteForm.date}
-                            onChange={(e) => setQuoteForm(prev => ({...prev, date: e.target.value}))}
-                          />
+                          <Input id="date" type="date" value={quoteForm.date} onChange={e => setQuoteForm(prev => ({
+                          ...prev,
+                          date: e.target.value
+                        }))} />
                         </div>
                       </div>
                       <div>
                         <Label htmlFor="addressFrom">Adresse de départ</Label>
-                        <Input
-                          id="addressFrom"
-                          value={quoteForm.addressFrom}
-                          onChange={(e) => setQuoteForm(prev => ({...prev, addressFrom: e.target.value}))}
-                          placeholder="Adresse de départ"
-                        />
+                        <Input id="addressFrom" value={quoteForm.addressFrom} onChange={e => setQuoteForm(prev => ({
+                        ...prev,
+                        addressFrom: e.target.value
+                      }))} placeholder="Adresse de départ" />
                       </div>
                       <div>
                         <Label htmlFor="addressTo">Adresse d'arrivée</Label>
-                        <Input
-                          id="addressTo"
-                          value={quoteForm.addressTo}
-                          onChange={(e) => setQuoteForm(prev => ({...prev, addressTo: e.target.value}))}
-                          placeholder="Adresse d'arrivée"
-                        />
+                        <Input id="addressTo" value={quoteForm.addressTo} onChange={e => setQuoteForm(prev => ({
+                        ...prev,
+                        addressTo: e.target.value
+                      }))} placeholder="Adresse d'arrivée" />
                       </div>
                       <div>
                         <Label htmlFor="message">Message (optionnel)</Label>
-                        <Textarea
-                          id="message"
-                          value={quoteForm.message}
-                          onChange={(e) => setQuoteForm(prev => ({...prev, message: e.target.value}))}
-                          placeholder="Informations supplémentaires..."
-                          rows={3}
-                        />
+                        <Textarea id="message" value={quoteForm.message} onChange={e => setQuoteForm(prev => ({
+                        ...prev,
+                        message: e.target.value
+                      }))} placeholder="Informations supplémentaires..." rows={3} />
                       </div>
                       <div className="bg-muted p-3 rounded-lg">
                         <p className="text-sm font-medium">Estimation actuelle :</p>
                         <p className="text-lg font-bold text-primary">{totalVolume.toFixed(1)} m³</p>
                         <p className="text-sm text-muted-foreground">Véhicule : {vehicle.type}</p>
                       </div>
-                      <Button 
-                        onClick={submitQuote}
-                        className="w-full"
-                        disabled={!quoteForm.name || !quoteForm.email || !quoteForm.phone || !quoteForm.addressFrom || !quoteForm.addressTo}
-                      >
+                      <Button onClick={submitQuote} className="w-full" disabled={!quoteForm.name || !quoteForm.email || !quoteForm.phone || !quoteForm.addressFrom || !quoteForm.addressTo}>
                         Envoyer la demande
                       </Button>
                     </div>
                   </DialogContent>
                 </Dialog>
                 
-                <Button 
-                  variant="outline"
-                  className="w-full"
-                >
+                <Button variant="outline" className="w-full">
                   <Phone className="h-4 w-4 mr-2" />
                   079 200 43 43
                 </Button>
@@ -512,6 +580,5 @@ export const VolumeEstimator = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
