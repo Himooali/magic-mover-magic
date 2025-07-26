@@ -625,46 +625,16 @@ export const VolumeEstimator = () => {
     });
   };
   const handleChatGPTSearch = () => {
-    if (searchTerm.trim()) {
-      // Recherche dans la base de données existante
-      const results = furnitureDatabase.filter(item => 
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.category.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      
-      if (results.length > 0) {
-        toast({
-          title: "Recherche effectuée",
-          description: `${results.length} objet(s) trouvé(s) pour "${searchTerm}"`
-        });
-      } else {
-        toast({
-          title: "Aucun résultat",
-          description: `Aucun objet trouvé pour "${searchTerm}". Essayez d'ajouter un objet personnalisé.`
-        });
-      }
-    } else {
-      toast({
-        title: "Recherche vide",
-        description: "Veuillez saisir un terme de recherche"
-      });
-    }
+    toast({
+      title: "Recherche ChatGPT",
+      description: "Fonctionnalité à venir..."
+    });
   };
-  
   const handleGoogleSearch = () => {
-    if (searchTerm.trim()) {
-      const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(searchTerm + ' volume déménagement mobilier')}`;
-      window.open(searchUrl, '_blank');
-      toast({
-        title: "Recherche Google ouverte",
-        description: "Nouvelle fenêtre ouverte avec les résultats Google"
-      });
-    } else {
-      toast({
-        title: "Recherche vide",
-        description: "Veuillez saisir un terme de recherche"
-      });
-    }
+    toast({
+      title: "Recherche Google",
+      description: "Fonctionnalité à venir..."
+    });
   };
   const requestQuote = () => {
     setShowQuoteDialog(true);
