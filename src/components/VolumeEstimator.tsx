@@ -625,19 +625,15 @@ export const VolumeEstimator = () => {
     });
   };
   const handleChatGPTSearch = () => {
-    const query = searchTerm || 'calcul volume déménagement mobilier';
-    window.open(`https://chat.openai.com/?q=${encodeURIComponent(query)}`, '_blank');
     toast({
       title: "Recherche ChatGPT",
-      description: "Ouverture de ChatGPT avec votre recherche"
+      description: "Fonctionnalité à venir..."
     });
   };
   const handleGoogleSearch = () => {
-    const query = searchTerm || 'calcul volume déménagement mobilier';
-    window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
     toast({
       title: "Recherche Google",
-      description: "Ouverture de Google avec votre recherche"
+      description: "Fonctionnalité à venir..."
     });
   };
   const requestQuote = () => {
@@ -686,7 +682,10 @@ export const VolumeEstimator = () => {
       <div className="bg-sky-blue text-white py-6">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-3xl font-bold mb-2">ESTIMATEUR DE VOLUME</h1>
-          
+          <div className="flex items-center justify-center gap-2">
+            <Phone className="h-5 w-5" />
+            <span className="text-lg font-semibold">079 200 43 43</span>
+          </div>
         </div>
       </div>
 
