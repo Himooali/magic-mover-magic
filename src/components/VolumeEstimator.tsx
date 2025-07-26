@@ -760,10 +760,10 @@ export const VolumeEstimator = () => {
             <Card className="p-6">
               <h2 className="text-xl font-semibold mb-4">Catégories</h2>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                {categories.map(category => <Button key={category.id} variant={selectedCategory === category.id ? "default" : "outline"} onClick={() => setSelectedCategory(category.id)} className="flex flex-col items-center gap-2 h-auto py-4">
-                    <span className="text-2xl">{category.icon}</span>
-                    <span className="text-sm">{category.name}</span>
+              <div className="grid grid-cols-4 md:grid-cols-7 gap-1">
+                {categories.map(category => <Button key={category.id} variant={selectedCategory === category.id ? "default" : "outline"} onClick={() => setSelectedCategory(category.id)} className="flex flex-col items-center gap-1 h-auto py-2 px-2">
+                    <span className="text-lg">{category.icon}</span>
+                    <span className="text-xs">{category.name}</span>
                   </Button>)}
               </div>
             </Card>
