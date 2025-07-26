@@ -140,17 +140,13 @@ export const VolumeEstimator = () => {
   };
 
   const handleChatGPTSearch = () => {
-    toast({
-      title: "Recherche ChatGPT",
-      description: "Fonctionnalité à venir...",
-    });
+    const query = searchTerm || 'mobilier déménagement volume';
+    window.open(`https://chatgpt.com/?q=${encodeURIComponent(query)}`, '_blank');
   };
 
   const handleGoogleSearch = () => {
-    toast({
-      title: "Recherche Google",
-      description: "Fonctionnalité à venir...",
-    });
+    const query = searchTerm || 'mobilier déménagement volume';
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
   };
 
   const requestQuote = () => {
@@ -302,19 +298,20 @@ export const VolumeEstimator = () => {
             </Card>
 
             {/* Categories */}
-            <Card className="p-6">
-              <h2 className="text-xl font-semibold mb-4">Catégories</h2>
+            <Card className="p-4">
+              <h2 className="text-lg font-semibold mb-3">Catégories</h2>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              <div className="flex flex-wrap gap-2">
                 {categories.map((category) => (
                   <Button
                     key={category.id}
                     variant={selectedCategory === category.id ? "default" : "outline"}
                     onClick={() => setSelectedCategory(category.id)}
-                    className="flex flex-col items-center gap-2 h-auto py-4"
+                    className="flex items-center gap-1 h-auto py-2 px-3 text-xs"
+                    size="sm"
                   >
-                    <span className="text-2xl">{category.icon}</span>
-                    <span className="text-sm">{category.name}</span>
+                    <span className="text-sm">{category.icon}</span>
+                    <span>{category.name}</span>
                   </Button>
                 ))}
               </div>
