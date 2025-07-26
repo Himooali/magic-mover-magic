@@ -67,34 +67,29 @@ const furnitureDatabase: FurnitureItem[] = [
 
 const getVehicleRecommendation = (volume: number) => {
   if (volume <= 3) return { 
-    type: 'Voiture + remorque (3m³)', 
+    type: 'Camions + remorque (3m³)', 
     icon: '🚗',
-    description: 'Idéal pour petits déménagements ou quelques meubles',
-    price: 'À partir de 50€/jour'
+    description: 'Idéal pour petits déménagements ou quelques meubles'
   };
   if (volume <= 8) return { 
     type: 'Camionnette (8m³)', 
     icon: '🚐',
-    description: 'Parfait pour studio ou petit 2 pièces',
-    price: 'À partir de 80€/jour'
+    description: 'Parfait pour studio ou petit 2 pièces'
   };
   if (volume <= 15) return { 
     type: 'Petit camion (15m³)', 
     icon: '🚚',
-    description: 'Adapté pour appartement 3-4 pièces',
-    price: 'À partir de 120€/jour'
+    description: 'Adapté pour appartement 3-4 pièces'
   };
   if (volume <= 30) return { 
     type: 'Camion moyen (30m³)', 
     icon: '🚛',
-    description: 'Pour grande maison ou bureau',
-    price: 'À partir de 180€/jour'
+    description: 'Pour grande maison ou bureau'
   };
   return { 
     type: 'Grand camion (40m³+)', 
     icon: '🚛',
-    description: 'Pour très gros déménagements',
-    price: 'Devis sur mesure'
+    description: 'Pour très gros déménagements'
   };
 };
 
@@ -109,7 +104,8 @@ export const VolumeEstimator = () => {
     name: '',
     email: '',
     phone: '',
-    address: '',
+    addressFrom: '',
+    addressTo: '',
     date: '',
     message: ''
   });
@@ -159,7 +155,7 @@ export const VolumeEstimator = () => {
       description: "Nous vous contacterons sous 24h",
     });
     setShowQuoteDialog(false);
-    setQuoteForm({ name: '', email: '', phone: '', address: '', date: '', message: '' });
+    setQuoteForm({ name: '', email: '', phone: '', addressFrom: '', addressTo: '', date: '', message: '' });
   };
 
   const addCustomItem = () => {
@@ -380,7 +376,6 @@ export const VolumeEstimator = () => {
                       <span className="font-medium">{vehicle.type}</span>
                     </div>
                     <p className="text-xs text-muted-foreground">{vehicle.description}</p>
-                    <p className="text-xs font-medium text-primary">{vehicle.price}</p>
                   </Badge>
                 </div>
               </div>
@@ -462,12 +457,21 @@ export const VolumeEstimator = () => {
                         </div>
                       </div>
                       <div>
-                        <Label htmlFor="address">Adresse de déménagement</Label>
+                        <Label htmlFor="addressFrom">Adresse de départ</Label>
                         <Input
-                          id="address"
-                          value={quoteForm.address}
-                          onChange={(e) => setQuoteForm(prev => ({...prev, address: e.target.value}))}
-                          placeholder="Adresse complète"
+                          id="addressFrom"
+                          value={quoteForm.addressFrom}
+                          onChange={(e) => setQuoteForm(prev => ({...prev, addressFrom: e.target.value}))}
+                          placeholder="Adresse de départ"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="addressTo">Adresse d'arrivée</Label>
+                        <Input
+                          id="addressTo"
+                          value={quoteForm.addressTo}
+                          onChange={(e) => setQuoteForm(prev => ({...prev, addressTo: e.target.value}))}
+                          placeholder="Adresse d'arrivée"
                         />
                       </div>
                       <div>
@@ -488,7 +492,7 @@ export const VolumeEstimator = () => {
                       <Button 
                         onClick={submitQuote}
                         className="w-full"
-                        disabled={!quoteForm.name || !quoteForm.email || !quoteForm.phone}
+                        disabled={!quoteForm.name || !quoteForm.email || !quoteForm.phone || !quoteForm.addressFrom || !quoteForm.addressTo}
                       >
                         Envoyer la demande
                       </Button>
