@@ -68,27 +68,27 @@ const furnitureDatabase: FurnitureItem[] = [
 const getVehicleRecommendation = (volume: number) => {
   if (volume <= 3) return { 
     type: 'Camions + remorque (3m³)', 
-    icon: '🚗',
+    icon: Car,
     description: 'Idéal pour petits déménagements ou quelques meubles'
   };
   if (volume <= 8) return { 
     type: 'Camionnette (8m³)', 
-    icon: '🚐',
+    icon: Truck,
     description: 'Parfait pour studio ou petit 2 pièces'
   };
   if (volume <= 15) return { 
     type: 'Petit camion (15m³)', 
-    icon: '🚚',
+    icon: Truck,
     description: 'Adapté pour appartement 3-4 pièces'
   };
   if (volume <= 30) return { 
     type: 'Camion moyen (30m³)', 
-    icon: '🚛',
+    icon: Truck,
     description: 'Pour grande maison ou bureau'
   };
   return { 
     type: 'Grand camion (40m³+)', 
-    icon: '🚛',
+    icon: Truck,
     description: 'Pour très gros déménagements'
   };
 };
@@ -372,7 +372,7 @@ export const VolumeEstimator = () => {
                 <div className="space-y-3">
                   <Badge variant="secondary" className="w-full justify-center py-3 flex-col gap-1">
                     <div className="flex items-center gap-2">
-                      <span className="text-lg">{vehicle.icon}</span>
+                      <vehicle.icon className="h-6 w-6" />
                       <span className="font-medium">{vehicle.type}</span>
                     </div>
                     <p className="text-xs text-muted-foreground">{vehicle.description}</p>
