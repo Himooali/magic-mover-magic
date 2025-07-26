@@ -625,15 +625,19 @@ export const VolumeEstimator = () => {
     });
   };
   const handleChatGPTSearch = () => {
+    const query = searchTerm || 'calcul volume déménagement mobilier';
+    window.open(`https://chat.openai.com/?q=${encodeURIComponent(query)}`, '_blank');
     toast({
       title: "Recherche ChatGPT",
-      description: "Fonctionnalité à venir..."
+      description: "Ouverture de ChatGPT avec votre recherche"
     });
   };
   const handleGoogleSearch = () => {
+    const query = searchTerm || 'calcul volume déménagement mobilier';
+    window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
     toast({
       title: "Recherche Google",
-      description: "Fonctionnalité à venir..."
+      description: "Ouverture de Google avec votre recherche"
     });
   };
   const requestQuote = () => {
