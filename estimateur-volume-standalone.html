@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estimateur de Volume - Déménagement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: hsl(210, 17%, 95%);
+            color: hsl(210, 40%, 15%);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .header {
+            background-color: hsl(195, 100%, 50%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        
+        @media (min-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+        
+        .card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid hsl(220, 13%, 91%);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .button-primary {
+            background-color: hsl(195, 100%, 50%);
+            color: white;
+        }
+        
+        .button-primary:hover {
+            background-color: hsl(195, 100%, 45%);
+        }
+        
+        .button-outline {
+            background: white;
+            border: 1px solid hsl(220, 13%, 91%);
+            color: hsl(210, 40%, 15%);
+        }
+        
+        .button-outline:hover {
+            background-color: hsl(210, 40%, 96%);
+        }
+        
+        .button-ghost {
+            background: transparent;
+            color: hsl(215, 16%, 47%);
+        }
+        
+        .button-ghost:hover {
+            background-color: hsl(210, 40%, 96%);
+        }
+        
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .category-btn {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            height: auto;
+        }
+        
+        .category-btn.active {
+            background-color: hsl(195, 100%, 50%);
+            color: white;
+        }
+        
+        .furniture-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        @media (min-width: 768px) {
+            .furniture-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .furniture-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            border: 1px solid hsl(220, 13%, 91%);
+            border-radius: 0.5rem;
+            background: white;
+        }
+        
+        .furniture-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .furniture-icon {
+            font-size: 1.5rem;
+        }
+        
+        .furniture-name {
+            font-weight: 500;
+        }
+        
+        .furniture-volume {
+            font-size: 0.875rem;
+            color: hsl(215, 16%, 47%);
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quantity-btn {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+        }
+        
+        .quantity-display {
+            min-width: 2rem;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .estimation-card {
+            position: sticky;
+            top: 1rem;
+        }
+        
+        .volume-display {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .volume-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: hsl(195, 100%, 50%);
+            margin-bottom: 0.5rem;
+        }
+        
+        .volume-label {
+            color: hsl(215, 16%, 47%);
+        }
+        
+        .vehicle-recommendation {
+            margin-bottom: 1.5rem;
+        }
+        
+        .vehicle-badge {
+            background-color: hsl(210, 40%, 96%);
+            border: 1px solid hsl(220, 13%, 91%);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .vehicle-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .vehicle-description {
+            font-size: 0.75rem;
+            color: hsl(215, 16%, 47%);
+        }
+        
+        .tips {
+            margin-bottom: 1.5rem;
+        }
+        
+        .tips h3 {
+            font-weight: 600;
+            color: #dc2626;
+            margin-bottom: 0.75rem;
+        }
+        
+        .tips ul {
+            list-style: none;
+            font-size: 0.875rem;
+            color: hsl(215, 16%, 47%);
+        }
+        
+        .tips li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .button-full {
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid hsl(220, 13%, 91%);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .estimation-summary {
+            background-color: hsl(210, 40%, 96%);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: white;
+            border: 1px solid hsl(220, 13%, 91%);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .custom-form {
+            border: 1px solid hsl(220, 13%, 91%);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            background-color: hsl(210, 40%, 96%);
+            margin-top: 1rem;
+        }
+        
+        .custom-form-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        
+        .custom-form-title {
+            font-weight: 500;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: hsl(215, 16%, 47%);
+        }
+        
+        .custom-form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        @media (min-width: 768px) {
+            .custom-form-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+        
+        .select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5rem 1.5rem;
+            padding-right: 2.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <h1>ESTIMATEUR DE VOLUME</h1>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="main-grid">
+            <!-- Left Column - Search and Items -->
+            <div>
+                <!-- Search Section -->
+                <div class="card">
+                    <h2>
+                        🔍 Rechercher un objet
+                    </h2>
+                    
+                    <input 
+                        type="text" 
+                        class="search-input" 
+                        placeholder="Rechercher un meuble..." 
+                        id="searchInput"
+                    >
+                    
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                        <button class="button button-outline" onclick="searchWithChatGPT()">
+                            🤖 Rechercher avec ChatGPT
+                        </button>
+                        <button class="button button-outline" onclick="searchWithGoogle()">
+                            🔍 Rechercher avec Google
+                        </button>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <button class="button button-ghost" id="addCustomBtn" onclick="toggleCustomForm()">
+                            + Ajouter un objet personnalisé
+                        </button>
+                        <button class="button button-ghost">
+                            Afficher
+                        </button>
+                    </div>
+                    
+                    <!-- Custom Form (hidden by default) -->
+                    <div class="custom-form hidden" id="customForm">
+                        <div class="custom-form-header">
+                            <h4 class="custom-form-title">Nouvel objet personnalisé</h4>
+                            <button class="close-btn" onclick="toggleCustomForm()">×</button>
+                        </div>
+                        <div class="custom-form-grid">
+                            <input type="text" class="form-input" placeholder="Nom de l'objet" id="customName">
+                            <input type="number" class="form-input" step="0.1" placeholder="Volume (m³)" id="customVolume">
+                            <select class="form-input select" id="customCategory">
+                                <option value="salon">Salon</option>
+                                <option value="cuisine">Cuisine</option>
+                                <option value="chambre">Chambre</option>
+                                <option value="salle-de-bain">Salle de bain</option>
+                                <option value="bureau">Bureau</option>
+                                <option value="jardin">Jardin & Balcon</option>
+                                <option value="divers">Divers</option>
+                            </select>
+                        </div>
+                        <button class="button button-primary" onclick="addCustomItem()">
+                            Ajouter
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Categories -->
+                <div class="card">
+                    <h2>Catégories</h2>
+                    
+                    <div class="categories" id="categories">
+                        <!-- Categories will be inserted here by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Furniture Items -->
+                <div class="card">
+                    <h2 id="categoryTitle">Salon</h2>
+                    
+                    <div class="furniture-grid" id="furnitureGrid">
+                        <!-- Furniture items will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column - Estimation -->
+            <div>
+                <div class="card estimation-card">
+                    <h2>Estimation</h2>
+                    
+                    <div class="volume-display">
+                        <div class="volume-number" id="totalVolume">0.0 m³</div>
+                        <p class="volume-label">Volume total estimé</p>
+                    </div>
+
+                    <div class="vehicle-recommendation">
+                        <h3 style="font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                            🚗 Véhicule recommandé
+                        </h3>
+                        <div class="vehicle-badge" id="vehicleRecommendation">
+                            <div class="vehicle-info">
+                                <span>🚗</span>
+                                <span>Camions + remorque (3m³)</span>
+                            </div>
+                            <p class="vehicle-description">Idéal pour petits déménagements ou quelques meubles</p>
+                        </div>
+                    </div>
+
+                    <div class="tips">
+                        <h3>📍 Conseils :</h3>
+                        <ul>
+                            <li>• Ajoutez 10-15% pour les affaires diverses</li>
+                            <li>• Prévoyez du matériel d'emballage</li>
+                            <li>• Contactez-nous pour un devis précis</li>
+                            <li>• Réservez à l'avance pour de meilleurs tarifs</li>
+                        </ul>
+                    </div>
+
+                    <div class="actions">
+                        <button class="button button-outline button-full" onclick="resetAll()">
+                            🔄 Réinitialiser
+                        </button>
+                        
+                        <button class="button button-primary button-full" onclick="openQuoteModal()">
+                            📋 Demander un devis
+                        </button>
+                        
+                        <button class="button button-outline button-full">
+                            📞 079 200 43 43
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quote Modal -->
+    <div class="modal" id="quoteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Demande de devis personnalisé</h3>
+            </div>
+            
+            <div class="form-group form-grid">
+                <div>
+                    <label class="form-label" for="quoteName">Nom complet</label>
+                    <input type="text" class="form-input" id="quoteName" placeholder="Votre nom">
+                </div>
+                <div>
+                    <label class="form-label" for="quoteEmail">Email</label>
+                    <input type="email" class="form-input" id="quoteEmail" placeholder="votre@email.com">
+                </div>
+            </div>
+            
+            <div class="form-group form-grid">
+                <div>
+                    <label class="form-label" for="quotePhone">Téléphone</label>
+                    <input type="tel" class="form-input" id="quotePhone" placeholder="079 200 43 43">
+                </div>
+                <div>
+                    <label class="form-label" for="quoteDate">Date souhaitée</label>
+                    <input type="date" class="form-input" id="quoteDate">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="quoteAddressFrom">Adresse de départ</label>
+                <input type="text" class="form-input" id="quoteAddressFrom" placeholder="Adresse de départ">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="quoteAddressTo">Adresse d'arrivée</label>
+                <input type="text" class="form-input" id="quoteAddressTo" placeholder="Adresse d'arrivée">
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="quoteMessage">Message (optionnel)</label>
+                <textarea class="form-input" id="quoteMessage" placeholder="Informations supplémentaires..." rows="3"></textarea>
+            </div>
+            
+            <div class="estimation-summary" id="quoteSummary">
+                <p style="font-weight: 500; margin-bottom: 0.25rem;">Estimation actuelle :</p>
+                <p style="font-size: 1.125rem; font-weight: bold; color: hsl(195, 100%, 50%); margin-bottom: 0.25rem;" id="quoteTotalVolume">0.0 m³</p>
+                <p style="font-size: 0.875rem; color: hsl(215, 16%, 47%);" id="quoteVehicle">Véhicule : Camions + remorque (3m³)</p>
+            </div>
+            
+            <div style="display: flex; gap: 0.75rem;">
+                <button class="button button-outline" onclick="closeQuoteModal()" style="flex: 1;">
+                    Annuler
+                </button>
+                <button class="button button-primary" onclick="submitQuote()" style="flex: 1;" id="submitQuoteBtn">
+                    Envoyer la demande
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast notification -->
+    <div class="toast" id="toast">
+        <div id="toastTitle" style="font-weight: 600; margin-bottom: 0.25rem;"></div>
+        <div id="toastDescription" style="font-size: 0.875rem; color: hsl(215, 16%, 47%);"></div>
+    </div>
+
+    <script>
+        // Data
+        const categories = [
+            { id: 'salon', name: 'Salon', icon: '🛋️' },
+            { id: 'cuisine', name: 'Cuisine', icon: '🍽️' },
+            { id: 'chambre', name: 'Chambre', icon: '🛏️' },
+            { id: 'salle-de-bain', name: 'Salle de bain', icon: '🚿' },
+            { id: 'bureau', name: 'Bureau', icon: '💼' },
+            { id: 'jardin', name: 'Jardin & Balcon', icon: '🌿' },
+            { id: 'divers', name: 'Divers', icon: '📦' }
+        ];
+
+        let furnitureDatabase = [
+            // Salon
+            { id: '1', name: "Canapé d'angle", icon: '🛋️', volume: 2.5, quantity: 0, category: 'salon' },
+            { id: '2', name: 'Canapé 3 places', icon: '🛋️', volume: 2, quantity: 0, category: 'salon' },
+            { id: '3', name: 'Canapé 2 places', icon: '🛋️', volume: 1.5, quantity: 0, category: 'salon' },
+            { id: '4', name: 'Fauteuil', icon: '🪑', volume: 0.8, quantity: 0, category: 'salon' },
+            { id: '5', name: 'Pouf', icon: '🪑', volume: 0.3, quantity: 0, category: 'salon' },
+            { id: '6', name: 'Méridienne', icon: '🛋️', volume: 1.8, quantity: 0, category: 'salon' },
+            { id: '7', name: 'Banquette', icon: '🛋️', volume: 1.2, quantity: 0, category: 'salon' },
+            { id: '8', name: 'Table basse', icon: '🏓', volume: 0.5, quantity: 0, category: 'salon' },
+            { id: '9', name: 'Bibliothèque grande', icon: '📚', volume: 1.5, quantity: 0, category: 'salon' },
+            { id: '10', name: 'Bibliothèque moyenne', icon: '📚', volume: 1, quantity: 0, category: 'salon' },
+            { id: '11', name: 'Meuble TV', icon: '📺', volume: 0.8, quantity: 0, category: 'salon' },
+            { id: '12', name: 'Piano droit', icon: '🎹', volume: 2, quantity: 0, category: 'salon' },
+            
+            // Cuisine
+            { id: '13', name: 'Réfrigérateur', icon: '❄️', volume: 1.2, quantity: 0, category: 'cuisine' },
+            { id: '14', name: 'Cuisinière', icon: '🔥', volume: 1, quantity: 0, category: 'cuisine' },
+            { id: '15', name: 'Lave-vaisselle', icon: '🧽', volume: 0.8, quantity: 0, category: 'cuisine' },
+            { id: '16', name: 'Table de cuisine', icon: '🍽️', volume: 0.6, quantity: 0, category: 'cuisine' },
+            { id: '17', name: 'Chaise de cuisine', icon: '🪑', volume: 0.2, quantity: 0, category: 'cuisine' },
+            
+            // Chambre
+            { id: '18', name: 'Lit double', icon: '🛏️', volume: 2, quantity: 0, category: 'chambre' },
+            { id: '19', name: 'Lit simple', icon: '🛏️', volume: 1.5, quantity: 0, category: 'chambre' },
+            { id: '20', name: 'Armoire 3 portes', icon: '🚪', volume: 2.5, quantity: 0, category: 'chambre' },
+            { id: '21', name: 'Commode', icon: '📦', volume: 0.8, quantity: 0, category: 'chambre' },
+            { id: '22', name: 'Table de chevet', icon: '🏠', volume: 0.3, quantity: 0, category: 'chambre' }
+        ];
+
+        let selectedCategory = 'salon';
+        let searchTerm = '';
+
+        // State management
+        function getTotalVolume() {
+            return furnitureDatabase.reduce((sum, item) => sum + (item.volume * item.quantity), 0);
+        }
+
+        function getVehicleRecommendation(volume) {
+            if (volume <= 3) return {
+                type: 'Camions + remorque (3m³)',
+                icon: '🚗',
+                description: 'Idéal pour petits déménagements ou quelques meubles'
+            };
+            if (volume <= 8) return {
+                type: 'Camionnette (8m³)',
+                icon: '🚚',
+                description: 'Parfait pour studio ou petit 2 pièces'
+            };
+            if (volume <= 15) return {
+                type: 'Petit camion (15m³)',
+                icon: '🚛',
+                description: 'Adapté pour appartement 3-4 pièces'
+            };
+            if (volume <= 30) return {
+                type: 'Camion moyen (30m³)',
+                icon: '🚛',
+                description: 'Pour grande maison ou bureau'
+            };
+            return {
+                type: 'Grand camion (40m³+)',
+                icon: '🚛',
+                description: 'Pour très gros déménagements'
+            };
+        }
+
+        // UI Functions
+        function showToast(title, description) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastTitle').textContent = title;
+            document.getElementById('toastDescription').textContent = description;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function updateEstimation() {
+            const totalVolume = getTotalVolume();
+            const vehicle = getVehicleRecommendation(totalVolume);
+            
+            document.getElementById('totalVolume').textContent = totalVolume.toFixed(1) + ' m³';
+            
+            const vehicleEl = document.getElementById('vehicleRecommendation');
+            vehicleEl.innerHTML = `
+                <div class="vehicle-info">
+                    <span>${vehicle.icon}</span>
+                    <span>${vehicle.type}</span>
+                </div>
+                <p class="vehicle-description">${vehicle.description}</p>
+            `;
+            
+            // Update quote modal summary
+            document.getElementById('quoteTotalVolume').textContent = totalVolume.toFixed(1) + ' m³';
+            document.getElementById('quoteVehicle').textContent = 'Véhicule : ' + vehicle.type;
+        }
+
+        function renderCategories() {
+            const container = document.getElementById('categories');
+            container.innerHTML = categories.map(category => `
+                <button 
+                    class="button category-btn ${selectedCategory === category.id ? 'button-primary active' : 'button-outline'}" 
+                    onclick="selectCategory('${category.id}')"
+                >
+                    <span>${category.icon}</span>
+                    <span>${category.name}</span>
+                </button>
+            `).join('');
+        }
+
+        function renderFurniture() {
+            const filteredFurniture = furnitureDatabase.filter(item => 
+                item.category === selectedCategory && 
+                (searchTerm === '' || item.name.toLowerCase().includes(searchTerm.toLowerCase()))
+            );
+            
+            const container = document.getElementById('furnitureGrid');
+            container.innerHTML = filteredFurniture.map(item => `
+                <div class="furniture-item">
+                    <div class="furniture-info">
+                        <span class="furniture-icon">${item.icon}</span>
+                        <div>
+                            <div class="furniture-name">${item.name}</div>
+                            <div class="furniture-volume">${item.volume} m³</div>
+                        </div>
+                    </div>
+                    
+                    <div class="quantity-controls">
+                        <button 
+                            class="button button-outline quantity-btn" 
+                            onclick="updateQuantity('${item.id}', -1)"
+                            ${item.quantity === 0 ? 'disabled' : ''}
+                        >
+                            −
+                        </button>
+                        <span class="quantity-display">${item.quantity}</span>
+                        <button 
+                            class="button button-outline quantity-btn" 
+                            onclick="updateQuantity('${item.id}', 1)"
+                        >
+                            +
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            const categoryTitle = categories.find(c => c.id === selectedCategory)?.name || '';
+            document.getElementById('categoryTitle').textContent = categoryTitle;
+        }
+
+        // Event handlers
+        function selectCategory(categoryId) {
+            selectedCategory = categoryId;
+            renderCategories();
+            renderFurniture();
+        }
+
+        function updateQuantity(itemId, change) {
+            const item = furnitureDatabase.find(f => f.id === itemId);
+            if (item) {
+                item.quantity = Math.max(0, item.quantity + change);
+                renderFurniture();
+                updateEstimation();
+            }
+        }
+
+        function resetAll() {
+            furnitureDatabase.forEach(item => item.quantity = 0);
+            renderFurniture();
+            updateEstimation();
+            showToast("Réinitialisation", "Toutes les quantités ont été remises à zéro");
+        }
+
+        function toggleCustomForm() {
+            const form = document.getElementById('customForm');
+            form.classList.toggle('hidden');
+        }
+
+        function addCustomItem() {
+            const name = document.getElementById('customName').value;
+            const volume = parseFloat(document.getElementById('customVolume').value);
+            const category = document.getElementById('customCategory').value;
+            
+            if (name && volume) {
+                const newItem = {
+                    id: Date.now().toString(),
+                    name: name,
+                    icon: '📦',
+                    volume: volume,
+                    quantity: 1,
+                    category: category
+                };
+                
+                furnitureDatabase.push(newItem);
+                
+                // Clear form
+                document.getElementById('customName').value = '';
+                document.getElementById('customVolume').value = '';
+                document.getElementById('customCategory').value = 'salon';
+                
+                toggleCustomForm();
+                
+                const categoryName = categories.find(c => c.id === category)?.name || '';
+                showToast("Objet ajouté", `${name} a été ajouté à la catégorie ${categoryName}`);
+                
+                if (selectedCategory === category) {
+                    renderFurniture();
+                }
+                updateEstimation();
+            }
+        }
+
+        function searchWithChatGPT() {
+            const selectedItems = furnitureDatabase.filter(item => item.quantity > 0);
+            const itemsList = selectedItems.map(item => `${item.name} (${item.quantity}x, ${item.volume}m³ chacun)`).join(', ');
+            const totalVolume = getTotalVolume();
+            const query = searchTerm || `devis déménagement ${totalVolume.toFixed(1)}m³ avec objets: ${itemsList}`;
+            window.open(`https://chatgpt.com/?q=${encodeURIComponent(query)}`, '_blank');
+        }
+
+        function searchWithGoogle() {
+            const selectedItems = furnitureDatabase.filter(item => item.quantity > 0);
+            const itemsList = selectedItems.map(item => `${item.name} (${item.quantity}x, ${item.volume}m³ chacun)`).join(', ');
+            const totalVolume = getTotalVolume();
+            const query = searchTerm || `devis déménagement ${totalVolume.toFixed(1)}m³ avec objets: ${itemsList}`;
+            window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
+        }
+
+        function openQuoteModal() {
+            document.getElementById('quoteModal').classList.add('active');
+            updateEstimation();
+        }
+
+        function closeQuoteModal() {
+            document.getElementById('quoteModal').classList.remove('active');
+        }
+
+        function submitQuote() {
+            const name = document.getElementById('quoteName').value;
+            const email = document.getElementById('quoteEmail').value;
+            const phone = document.getElementById('quotePhone').value;
+            const date = document.getElementById('quoteDate').value;
+            const addressFrom = document.getElementById('quoteAddressFrom').value;
+            const addressTo = document.getElementById('quoteAddressTo').value;
+            const message = document.getElementById('quoteMessage').value;
+            
+            if (!name || !email || !phone || !addressFrom || !addressTo) {
+                showToast("Erreur", "Veuillez remplir tous les champs obligatoires");
+                return;
+            }
+            
+            const selectedItems = furnitureDatabase.filter(item => item.quantity > 0);
+            const itemsList = selectedItems.map(item => `${item.name} (${item.quantity}x, ${item.volume}m³ chacun)`).join('\n');
+            const totalVolume = getTotalVolume();
+            const vehicle = getVehicleRecommendation(totalVolume);
+            
+            const emailBody = `
+Demande de devis déménagement
+
+Informations client:
+- Nom: ${name}
+- Email: ${email}
+- Téléphone: ${phone}
+- Date souhaitée: ${date}
+
+Adresses:
+- Départ: ${addressFrom}
+- Arrivée: ${addressTo}
+
+Estimation de volume:
+- Volume total: ${totalVolume.toFixed(1)} m³
+- Véhicule recommandé: ${vehicle.type}
+
+Objets à déménager:
+${itemsList}
+
+Message du client:
+${message}
+            `.trim();
+            
+            const mailtoLink = `mailto:info@himoo.ch?subject=Demande de devis déménagement - ${name}&body=${encodeURIComponent(emailBody)}`;
+            window.open(mailtoLink);
+            
+            showToast("Demande envoyée", "Votre client de messagerie s'est ouvert avec la demande");
+            closeQuoteModal();
+            
+            // Clear form
+            document.getElementById('quoteName').value = '';
+            document.getElementById('quoteEmail').value = '';
+            document.getElementById('quotePhone').value = '';
+            document.getElementById('quoteDate').value = '';
+            document.getElementById('quoteAddressFrom').value = '';
+            document.getElementById('quoteAddressTo').value = '';
+            document.getElementById('quoteMessage').value = '';
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            searchTerm = e.target.value;
+            renderFurniture();
+        });
+
+        // Close modal when clicking outside
+        document.getElementById('quoteModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeQuoteModal();
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCategories();
+            renderFurniture();
+            updateEstimation();
+        });
+    </script>
+</body>
+</html>
