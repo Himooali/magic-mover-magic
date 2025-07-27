@@ -297,9 +297,39 @@ export const VolumeEstimator = () => {
     setShowQuoteDialog(true);
   };
   const submitQuote = () => {
+    const selectedItems = furniture.filter(item => item.quantity > 0);
+    const itemsList = selectedItems.map(item => `${item.name} (${item.quantity}x, ${item.volume}m³ chacun)`).join('\n');
+    
+    const emailBody = `
+Demande de devis déménagement
+
+Informations client:
+- Nom: ${quoteForm.name}
+- Email: ${quoteForm.email}
+- Téléphone: ${quoteForm.phone}
+- Date souhaitée: ${quoteForm.date}
+
+Adresses:
+- Départ: ${quoteForm.addressFrom}
+- Arrivée: ${quoteForm.addressTo}
+
+Estimation de volume:
+- Volume total: ${totalVolume.toFixed(1)} m³
+- Véhicule recommandé: ${vehicle.type}
+
+Objets à déménager:
+${itemsList}
+
+Message du client:
+${quoteForm.message}
+    `.trim();
+
+    const mailtoLink = `mailto:info@himoo.ch?subject=Demande de devis déménagement - ${quoteForm.name}&body=${encodeURIComponent(emailBody)}`;
+    window.open(mailtoLink);
+    
     toast({
       title: "Demande envoyée",
-      description: "Nous vous contacterons sous 24h"
+      description: "Votre client de messagerie s'est ouvert avec la demande"
     });
     setShowQuoteDialog(false);
     setQuoteForm({
