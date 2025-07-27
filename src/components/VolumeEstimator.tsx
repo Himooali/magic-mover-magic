@@ -282,11 +282,15 @@ export const VolumeEstimator = () => {
     });
   };
   const handleChatGPTSearch = () => {
-    const query = searchTerm || 'mobilier déménagement volume';
+    const selectedItems = furniture.filter(item => item.quantity > 0);
+    const itemsList = selectedItems.map(item => `${item.name} (${item.quantity}x, ${item.volume}m³ chacun)`).join(', ');
+    const query = searchTerm || `devis déménagement ${totalVolume.toFixed(1)}m³ avec objets: ${itemsList}`;
     window.open(`https://chatgpt.com/?q=${encodeURIComponent(query)}`, '_blank');
   };
   const handleGoogleSearch = () => {
-    const query = searchTerm || 'mobilier déménagement volume';
+    const selectedItems = furniture.filter(item => item.quantity > 0);
+    const itemsList = selectedItems.map(item => `${item.name} (${item.quantity}x, ${item.volume}m³ chacun)`).join(', ');
+    const query = searchTerm || `devis déménagement ${totalVolume.toFixed(1)}m³ avec objets: ${itemsList}`;
     window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
   };
   const requestQuote = () => {
