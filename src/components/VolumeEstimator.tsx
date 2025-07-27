@@ -137,423 +137,80 @@ const furnitureDatabase: FurnitureItem[] = [
   volume: 2,
   quantity: 0,
   category: 'salon'
-}, {
-  id: '13',
-  name: 'Tapis grande taille',
-  icon: '🧑‍🎨',
-  volume: 0.4,
-  quantity: 0,
-  category: 'salon'
-}, {
-  id: '14',
-  name: 'Lampadaire',
-  icon: '💡',
-  volume: 0.2,
-  quantity: 0,
-  category: 'salon'
-}, {
-  id: '15',
-  name: 'Console',
-  icon: '🏺',
-  volume: 0.6,
-  quantity: 0,
-  category: 'salon'
-}, {
-  id: '16',
-  name: 'Guéridon',
-  icon: '🏓',
-  volume: 0.3,
-  quantity: 0,
-  category: 'salon'
 },
-
 // Cuisine
 {
-  id: '17',
+  id: '13',
   name: 'Réfrigérateur',
   icon: '❄️',
   volume: 1.2,
   quantity: 0,
   category: 'cuisine'
 }, {
-  id: '18',
+  id: '14',
   name: 'Cuisinière',
   icon: '🔥',
   volume: 1,
   quantity: 0,
   category: 'cuisine'
 }, {
-  id: '19',
+  id: '15',
   name: 'Lave-vaisselle',
   icon: '🧽',
   volume: 0.8,
   quantity: 0,
   category: 'cuisine'
 }, {
-  id: '20',
+  id: '16',
   name: 'Table de cuisine',
   icon: '🍽️',
   volume: 0.6,
   quantity: 0,
   category: 'cuisine'
 }, {
-  id: '21',
+  id: '17',
   name: 'Chaise de cuisine',
   icon: '🪑',
   volume: 0.2,
   quantity: 0,
   category: 'cuisine'
-}, {
-  id: '22',
-  name: 'Lave-linge',
-  icon: '🧺',
-  volume: 0.9,
-  quantity: 0,
-  category: 'cuisine'
-}, {
-  id: '23',
-  name: 'Micro-ondes',
-  icon: '📻',
-  volume: 0.1,
-  quantity: 0,
-  category: 'cuisine'
-}, {
-  id: '24',
-  name: 'Four',
-  icon: '🔥',
-  volume: 0.7,
-  quantity: 0,
-  category: 'cuisine'
-}, {
-  id: '25',
-  name: 'Congélateur',
-  icon: '🧊',
-  volume: 1,
-  quantity: 0,
-  category: 'cuisine'
-}, {
-  id: '26',
-  name: 'Meuble bas cuisine',
-  icon: '🗄️',
-  volume: 0.8,
-  quantity: 0,
-  category: 'cuisine'
-}, {
-  id: '27',
-  name: 'Meuble haut cuisine',
-  icon: '🗄️',
-  volume: 0.5,
-  quantity: 0,
-  category: 'cuisine'
-}, {
-  id: '28',
-  name: 'Îlot central',
-  icon: '🏝️',
-  volume: 1.5,
-  quantity: 0,
-  category: 'cuisine'
 },
-
 // Chambre
 {
-  id: '29',
+  id: '18',
   name: 'Lit double',
   icon: '🛏️',
   volume: 2,
   quantity: 0,
   category: 'chambre'
 }, {
-  id: '30',
+  id: '19',
   name: 'Lit simple',
   icon: '🛏️',
   volume: 1.5,
   quantity: 0,
   category: 'chambre'
 }, {
-  id: '31',
+  id: '20',
   name: 'Armoire 3 portes',
   icon: '🚪',
   volume: 2.5,
   quantity: 0,
   category: 'chambre'
 }, {
-  id: '32',
+  id: '21',
   name: 'Commode',
   icon: '📦',
   volume: 0.8,
   quantity: 0,
   category: 'chambre'
 }, {
-  id: '33',
+  id: '22',
   name: 'Table de chevet',
   icon: '🏠',
   volume: 0.3,
   quantity: 0,
   category: 'chambre'
-}, {
-  id: '34',
-  name: 'Matelas',
-  icon: '🛏️',
-  volume: 0.8,
-  quantity: 0,
-  category: 'chambre'
-}, {
-  id: '35',
-  name: 'Dressing',
-  icon: '👔',
-  volume: 3,
-  quantity: 0,
-  category: 'chambre'
-}, {
-  id: '36',
-  name: 'Coiffeuse',
-  icon: '💄',
-  volume: 0.6,
-  quantity: 0,
-  category: 'chambre'
-}, {
-  id: '37',
-  name: 'Coffre rangement',
-  icon: '🧳',
-  volume: 0.4,
-  quantity: 0,
-  category: 'chambre'
-}, {
-  id: '38',
-  name: 'Miroir grande taille',
-  icon: '🪞',
-  volume: 0.2,
-  quantity: 0,
-  category: 'chambre'
-},
-
-// Salle de bain
-{
-  id: '39',
-  name: 'Meuble vasque',
-  icon: '🚿',
-  volume: 0.7,
-  quantity: 0,
-  category: 'salle-de-bain'
-}, {
-  id: '40',
-  name: 'Colonne de rangement',
-  icon: '🏛️',
-  volume: 0.5,
-  quantity: 0,
-  category: 'salle-de-bain'
-}, {
-  id: '41',
-  name: 'Baignoire',
-  icon: '🛁',
-  volume: 2,
-  quantity: 0,
-  category: 'salle-de-bain'
-}, {
-  id: '42',
-  name: 'Douche cabine',
-  icon: '🚿',
-  volume: 1.5,
-  quantity: 0,
-  category: 'salle-de-bain'
-}, {
-  id: '43',
-  name: 'Lave-linge',
-  icon: '🧺',
-  volume: 0.9,
-  quantity: 0,
-  category: 'salle-de-bain'
-}, {
-  id: '44',
-  name: 'Sèche-linge',
-  icon: '🌀',
-  volume: 0.9,
-  quantity: 0,
-  category: 'salle-de-bain'
-}, {
-  id: '45',
-  name: 'Miroir salle de bain',
-  icon: '🪞',
-  volume: 0.1,
-  quantity: 0,
-  category: 'salle-de-bain'
-},
-
-// Bureau
-{
-  id: '46',
-  name: 'Bureau',
-  icon: '🖥️',
-  volume: 0.8,
-  quantity: 0,
-  category: 'bureau'
-}, {
-  id: '47',
-  name: 'Chaise de bureau',
-  icon: '🪑',
-  volume: 0.3,
-  quantity: 0,
-  category: 'bureau'
-}, {
-  id: '48',
-  name: 'Armoire bureau',
-  icon: '🗄️',
-  volume: 1.5,
-  quantity: 0,
-  category: 'bureau'
-}, {
-  id: '49',
-  name: 'Étagères',
-  icon: '📚',
-  volume: 0.6,
-  quantity: 0,
-  category: 'bureau'
-}, {
-  id: '50',
-  name: 'Caisson mobile',
-  icon: '📦',
-  volume: 0.3,
-  quantity: 0,
-  category: 'bureau'
-}, {
-  id: '51',
-  name: 'Table de réunion',
-  icon: '🏓',
-  volume: 1.2,
-  quantity: 0,
-  category: 'bureau'
-}, {
-  id: '52',
-  name: 'Coffre-fort',
-  icon: '🔒',
-  volume: 0.4,
-  quantity: 0,
-  category: 'bureau'
-}, {
-  id: '53',
-  name: 'Imprimante',
-  icon: '🖨️',
-  volume: 0.1,
-  quantity: 0,
-  category: 'bureau'
-},
-
-// Jardin & Balcon
-{
-  id: '54',
-  name: 'Table de jardin',
-  icon: '🏓',
-  volume: 0.8,
-  quantity: 0,
-  category: 'jardin'
-}, {
-  id: '55',
-  name: 'Chaise de jardin',
-  icon: '🪑',
-  volume: 0.2,
-  quantity: 0,
-  category: 'jardin'
-}, {
-  id: '56',
-  name: 'Parasol',
-  icon: '☂️',
-  volume: 0.3,
-  quantity: 0,
-  category: 'jardin'
-}, {
-  id: '57',
-  name: 'Barbecue',
-  icon: '🔥',
-  volume: 0.6,
-  quantity: 0,
-  category: 'jardin'
-}, {
-  id: '58',
-  name: 'Bain de soleil',
-  icon: '🏖️',
-  volume: 0.5,
-  quantity: 0,
-  category: 'jardin'
-}, {
-  id: '59',
-  name: 'Salon de jardin',
-  icon: '🛋️',
-  volume: 2,
-  quantity: 0,
-  category: 'jardin'
-}, {
-  id: '60',
-  name: 'Tondeuse',
-  icon: '🌱',
-  volume: 0.4,
-  quantity: 0,
-  category: 'jardin'
-}, {
-  id: '61',
-  name: 'Jardinières',
-  icon: '🪴',
-  volume: 0.2,
-  quantity: 0,
-  category: 'jardin'
-},
-
-// Divers
-{
-  id: '62',
-  name: 'Cartons',
-  icon: '📦',
-  volume: 0.1,
-  quantity: 0,
-  category: 'divers'
-}, {
-  id: '63',
-  name: 'Aspirateur',
-  icon: '🧹',
-  volume: 0.2,
-  quantity: 0,
-  category: 'divers'
-}, {
-  id: '64',
-  name: 'Vélo',
-  icon: '🚲',
-  volume: 0.8,
-  quantity: 0,
-  category: 'divers'
-}, {
-  id: '65',
-  name: 'Tableau',
-  icon: '🖼️',
-  volume: 0.1,
-  quantity: 0,
-  category: 'divers'
-}, {
-  id: '66',
-  name: 'Plantes grandes',
-  icon: '🪴',
-  volume: 0.3,
-  quantity: 0,
-  category: 'divers'
-}, {
-  id: '67',
-  name: 'Valises',
-  icon: '🧳',
-  volume: 0.2,
-  quantity: 0,
-  category: 'divers'
-}, {
-  id: '68',
-  name: 'Instruments musique',
-  icon: '🎸',
-  volume: 0.5,
-  quantity: 0,
-  category: 'divers'
-}, {
-  id: '69',
-  name: 'Équipement sport',
-  icon: '⚽',
-  volume: 0.4,
-  quantity: 0,
-  category: 'divers'
 }];
 const getVehicleRecommendation = (volume: number) => {
   if (volume <= 3) return {
